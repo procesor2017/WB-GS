@@ -1,4 +1,4 @@
-# WGS
+# WB-GS
 # Instalace:
   Musíš mít vytvořený a aktivní účet
   Stáhneš si zde https://chromedriver.chromium.org/downloads driver na verzi chromu jakou máš, popřípadě si ho prostě aktualizuj a pak si stáhni nejnovjěší driver
