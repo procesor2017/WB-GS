@@ -8,7 +8,7 @@
 ### Refresh na Světovém trhu 
 Pouze překlikne na sv.t. a dává random refresh v čase od 2s do 30S
 ### Proxy 
-Zapne přihlašování  přes proxy, ochrana proti poznání o koho se jedná
+Zapne přihlašování  přes proxy, ochrana proti poznání o koho se jedná, pro 100% ukrytí to ale doopravdy není, to použijte VPN
 ### Konzole [Černé okýnko na pozadí]
 Vypisuje co se děje a občas nějakou moji poznámku :-)
 # Excel 
