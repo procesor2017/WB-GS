@@ -229,20 +229,22 @@ class BotTop:
         book.save('data.xlsx')
     def CloseDriver(self):
         self.driver.quit()
+
 #Def ze kterého spouštím nějaký chod programu, uvnitř jsou vložené instance, metody z třídy která je nad tím
 def Try():
     #log
+    print(chdrive.get())
     print(login.get())
     print(heslo.get())
     #Zda chceš ppužít proxy nebo ne
     if proxy.get() == 1:
         #s proxy
-        pripojeni = BotTop(webdriver.Chrome('C:\\bin\\chromedriver'),"https://www.free-proxy.com/")
+        pripojeni = BotTop(webdriver.Chrome(chdrive.get()),"https://www.free-proxy.com/") #Cesta k driveru 'C:\\bin\\chromedriver'
         pripojeni.Connect()
         time.sleep(3)
     else:
         #bez proxy
-        pripojeni = BotTop(webdriver.Chrome('C:\\bin\\chromedriver'),"https://www.webgame.cz/")
+        pripojeni = BotTop(webdriver.Chrome(chdrive.get()),"https://www.webgame.cz/") #Cesta k driveru 'C:\\bin\\chromedriver'
     time.sleep(4)
     #vložení log inu a heslo do formuláře a odeslání
     pripojeni.LogIn(login.get(), heslo.get())
@@ -291,34 +293,32 @@ def Try():
 #list s možnými odkazy
 odkaz = ['Sv','Det', 'Arch', 'Dom', 'Roz']
 listsodkazem = ['Sv', random.choice(odkaz)]
-
 #Nastavuju podmínku že mi muže běžet cyklus zápisů pořád dokola
 run = True
-
-
 #region Win Okno na spouštění appky
 #Formulář window
 window = Tk()
 window.title("Webgame Trh")
-window.geometry('600x300')
-#region LogiN část
+window.geometry('300x400')
+#region Drive/LogiN část
+#Kde máš drive k chrome
+chdrive_text = Label(window,  text="Drive:").place(relx= .2, rely=.1, anchor=S)
+chdrive = Entry(window)
+chdrive.place(relx = .6, rely = .1, anchor = S)
 #Log In Input
-login_text = Label(window,  text="LogIn:").place(relx= .05, rely=.1, anchor=S)
+login_text = Label(window,  text="LogIn:").place(relx= .2, rely=.17, anchor=S)
 login = Entry(window)
-login.place(relx = .19, rely = .1, anchor = S)
+login.place(relx = .6, rely = .17, anchor = S)
 #Heslo
-login_text = Label(window, text="Heslo:").place(relx= .34, rely=.1, anchor=S)
+login_text = Label(window, text="Heslo:").place(relx= .2, rely=.24, anchor=S)
 heslo = Entry(window)
-heslo.place(relx= .5, rely=.1, anchor = S)
+heslo.place(relx= .6, rely=.24, anchor = S)
 #endregion
 #region Check buttons
 refresh = IntVar()
-Checkbutton(window, text='Refresh na Světovém trhu', variable=refresh).place(relx = .75, rely = .1, anchor = S)
+Checkbutton(window, text='Refresh na Světovém trhu', variable=refresh).place(relx = .5, rely = .32, anchor = S)
 proxy = IntVar()
-Checkbutton(window, text='Proxy', variable=proxy).place(relx = .662, rely = .17, anchor = S)
-
-
-
+Checkbutton(window, text='Proxy', variable=proxy).place(relx = .5, rely = .38, anchor = S)
 
 #endregion
 #Tlačíko Start
