@@ -1,2 +1,2 @@
 # WBGS
-WBGS
+Scripty for fun 
