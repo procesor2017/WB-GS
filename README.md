@@ -9,6 +9,8 @@
 Pouze překlikne na Světový trh a random v čase
 ### Proxy 
 Zapne přihlašování  přes proxy, ochrana proti poznání o koho se jedná
+### Konzole [Černé okýnko na pozadí]
+Vypisuje co se děje a občas nějakou moji poznámku :-)
 # Excel 
   - Data najdeš ve složce ve které máš umístěný .exe soubor se po zapsaní prvních hodnot vytvoří excel s uloženými daty.
   - Data jsou řazeny, tak že zápis najdeš vždy na řádku který se rovná ceně, jídlo stojí 11 tak pak na řádku 11 najdeš zápis, který odpovídá 
