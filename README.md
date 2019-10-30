@@ -6,7 +6,7 @@
   [Příklad: mám uložený driver ve složce bin hned v hlavním adresáří C: cesta kněmu je tedy C:\\bin\\chromedriver]
 # Možné volby:
 ### Refresh na Světovém trhu 
-Pouze překlikne na Světový trh a random v čase
+Pouze překlikne na sv.t. a dává random refresh v čase od 2s do 30S
 ### Proxy 
 Zapne přihlašování  přes proxy, ochrana proti poznání o koho se jedná
 ### Konzole [Černé okýnko na pozadí]
