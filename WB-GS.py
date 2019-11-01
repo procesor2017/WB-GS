@@ -11,7 +11,6 @@ import threading
 
 
 # Vytvářím class pro hlavní ovládní botíka
-@BotTop
 class BotTop:
     # Kde mám ovladač a proxy server
     def __init__(self, driver, web):
