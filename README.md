@@ -1,8 +1,9 @@
 # WB-GS
 # Instalace:
-  Musíš mít vytvořený a aktivní účet
-  Stáhneš si zde https://chromedriver.chromium.org/downloads driver na verzi chromu jakou máš, popřípadě si ho prostě aktualizuj a pak si stáhni nejnovjěší driver
-  Do okna u Drive pak vlož cestu k souboru chromedrive.exe 
+  1. Musíš mít vytvořený a aktivní účet
+  2. Stáhni si WGS.rar a extrahuj
+  3. Stáhneš si zde https://chromedriver.chromium.org/downloads driver na verzi chromu jakou máš, popřípadě si ho prostě aktualizuj a pak si stáhni nejnovjěší driver
+  4. Do okna, u kterého je napsáno Drive pak vlož cestu k souboru chromedrive.exe 
   [Příklad: mám uložený driver ve složce bin hned v hlavním adresáří C: cesta kněmu je tedy C:\\bin\\chromedriver]
 # Možné volby:
 ### Refresh na Světovém trhu 
