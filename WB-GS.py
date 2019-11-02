@@ -1,6 +1,7 @@
 from selenium import webdriver
 import os.path
 from tkinter import *
+from tkinter import ttk
 import time
 import random
 from openpyxl import Workbook
@@ -255,19 +256,40 @@ class BotTop:
 # Def ze kterého spouštím nějaký chod programu, uvnitř jsou vložené instance, metody z třídy která je nad tím
 def start():
     print(run)
+    print(prohlizec.get())
     print(chdrive.get())
     print(login.get())
     print(heslo.get())
     # Zda chceš ppužít proxy nebo ne
-    if proxy.get() == 1:
-        # s proxy
-        pripojeni = BotTop(webdriver.Chrome(chdrive.get()),"https://www.free-proxy.com/")  # Cesta k driveru 'C:\\bin\\chromedriver'
-        pripojeni.connect()
-        time.sleep(3)
+    if "Chrome" == prohlizec.get():
+        if proxy.get() == 1:
+            # s proxy
+            pripojeni = BotTop(webdriver.Chrome(chdrive.get()),"https://www.free-proxy.com/")  # Cesta k driveru 'C:\\bin\\chromedriver'
+            pripojeni.connect()
+            time.sleep(3)
+        else:
+            # bez proxy
+            pripojeni = BotTop(webdriver.Chrome(chdrive.get()),"https://www.webgame.cz/")  # Cesta k driveru 'C:\\bin\\chromedriver'
+    elif prohlizec.get() == "Firefox":
+        if proxy.get() == 1:
+            # s proxy
+            pripojeni = BotTop(webdriver.Firefox(chdrive.get()),"https://www.free-proxy.com/")  # Cesta k driveru 'C:\\bin\\chromedriver'
+            pripojeni.connect()
+            time.sleep(3)
+        else:
+            # bez proxy
+            pripojeni = BotTop(webdriver.Firefox(executable_path=chdrive.get()),"https://www.webgame.cz/")  # Cesta k driveru 'C:\\bin\\chromedriver'
+    elif prohlizec == "Internet Explorer":
+        if proxy.get() == 1:
+            # s proxy
+            pripojeni = BotTop(webdriver.Ie(chdrive.get()),"https://www.free-proxy.com/")  # Cesta k driveru 'C:\\bin\\chromedriver'
+            pripojeni.connect()
+            time.sleep(3)
+        else:
+            # bez proxy
+            pripojeni = BotTop(webdriver.Ie(chdrive.get()),"https://www.webgame.cz/")  # Cesta k driveru 'C:\\bin\\chromedriver'
     else:
-        # bez proxy
-        pripojeni = BotTop(webdriver.Chrome(chdrive.get()),
-                           "https://www.webgame.cz/")  # Cesta k driveru 'C:\\bin\\chromedriver'
+        print("Nevybral jsi prohlížeč")
     time.sleep(4)
     # vložení log inu a heslo do formuláře a odeslání
     pripojeni.login(login.get(), heslo.get())
@@ -357,27 +379,31 @@ window.title("Webgame Trh")
 window.geometry('300x400')
 # region Drive/LogiN část
 # Kde máš drive k chrome
-chdrive_text = Label(window, text="Drive:").place(relx=.2, rely=.1, anchor=S)
+prohlizec_text = Label(window, text="Vyber si prohlížeč:").place(relx=.2, rely=.1, anchor=S)
+prohlizec = ttk.Combobox(window, values=("Chrome", "Internet Explorer", "Firefox"), width=10)
+prohlizec.place(relx=.6, rely=.1, anchor=S)
+
+chdrive_text = Label(window, text="Drive:").place(relx=.2, rely=.17, anchor=S)
 chdrive = Entry(window, text='Ahoj')
 chdrive.insert(1, driver_insert)
-chdrive.place(relx=.6, rely=.1, anchor=S)
+chdrive.place(relx=.6, rely=.17, anchor=S)
 # Log In Input
-login_text = Label(window, text="LogIn:").place(relx=.2, rely=.17, anchor=S)
+login_text = Label(window, text="LogIn:").place(relx=.2, rely=.24, anchor=S)
 login = Entry(window)
 login.insert(1, login_insert)
-login.place(relx=.6, rely=.17, anchor=S)
+login.place(relx=.6, rely=.24, anchor=S)
 # Heslo
 ahoj = 'watafaka'
-heslo_text = Label(window, text="Heslo:").place(relx=.2, rely=.24, anchor=S)
+heslo_text = Label(window, text="Heslo:").place(relx=.2, rely=.32, anchor=S)
 heslo = Entry(window)
 heslo.insert(1, heslo_insert)
-heslo.place(relx=.6, rely=.24, anchor=S)
+heslo.place(relx=.6, rely=.32, anchor=S)
 # endregion
 # region Check buttons
 refresh = IntVar()
-Checkbutton(window, text='Refresh na Světovém trhu', variable=refresh).place(relx=.5, rely=.32, anchor=S)
+Checkbutton(window, text='Refresh na Světovém trhu', variable=refresh).place(relx=.5, rely=.39, anchor=S)
 proxy = IntVar()
-Checkbutton(window, text='Proxy', variable=proxy).place(relx=.5, rely=.38, anchor=S)
+Checkbutton(window, text='Proxy', variable=proxy).place(relx=.5, rely=.46, anchor=S)
 
 # endregion
 # region Tlačítka
