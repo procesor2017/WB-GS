@@ -9,6 +9,13 @@ import openpyxl
 import datetime
 import configparser
 import threading
+import sys
+import os
+
+if getattr(sys, 'frozen', False) :
+    # running in a bundle
+    chromedriver_path = os.path.join(sys._MEIPASS, 'chromedriver')
+
 
 
 # Vytvářím class pro hlavní ovládní botíka
