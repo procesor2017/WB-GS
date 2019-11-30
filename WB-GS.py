@@ -12,11 +12,6 @@ import threading
 import sys
 import os
 
-if getattr(sys, 'frozen', False) :
-    # running in a bundle
-    chromedriver_path = os.path.join(sys._MEIPASS, 'chromedriver')
-
-
 
 # Vytvářím class pro hlavní ovládní botíka
 class BotTop:
@@ -258,6 +253,140 @@ class BotTop:
         print('Odmazáno to podtím')
         book.save('data.xlsx')
 
+    def datasvetovytrh(self):
+        print("Skenuju trh")
+        driver = self.driver
+        jidlo_pocetkprodeji = driver.find_element_by_xpath('//*[@id="wt_row_1"]/td[3]').text
+        energie_pocetkprodeji = driver.find_element_by_xpath('//*[@id="wt_row_2"]/td[3]').text
+        voj_pocetkprodeji = driver.find_element_by_xpath('//*[@id="wt_row_3"]/td[3]').text
+        tanky_pocetkprodeji = driver.find_element_by_xpath('//*[@id="wt_row_4"]/td[3]').text
+        stihy_pocetkprodeji = driver.find_element_by_xpath('//*[@id="wt_row_5"]/td[3]').text
+        bunkry_pocetkprodeji = driver.find_element_by_xpath('//*[@id="wt_row_6"]/td[3]').text
+        mechy_pocetkprodeji = driver.find_element_by_xpath('//*[@id="wt_row_6"]/td[3]').text
+        # Cena
+        jidlo_cena = driver.find_element_by_xpath('//*[@id="wt_row_1"]/td[5]').text
+        jidlo_cena = jidlo_cena.split('\n')
+        self.jidlo_cena = jidlo_cena[0]
+        energie_cena = driver.find_element_by_xpath('//*[@id="wt_row_2"]/td[5]').text
+        energie_cena = energie_cena.split('\n')
+        self.energie_cena = energie_cena[0]
+        voj_cena = driver.find_element_by_xpath('//*[@id="wt_row_3"]/td[5]').text
+        voj_cena = voj_cena.split('\n')
+        self.voj_cena = voj_cena[0]
+        tanky_cena = driver.find_element_by_xpath('//*[@id="wt_row_4"]/td[5]').text
+        tanky_cena = tanky_cena.split('\n')
+        self.tanky_cena = tanky_cena[0]
+        stihy_cena = driver.find_element_by_xpath('//*[@id="wt_row_5"]/td[5]').text
+        stihy_cena = stihy_cena.split('\n')
+        self.stihy_cena = stihy_cena[0]
+        bunkry_cena = driver.find_element_by_xpath('//*[@id="wt_row_6"]/td[5]').text
+        bunkry_cena = bunkry_cena.split('\n')
+        self.bunkry_cena = bunkry_cena[0]
+        mechy_cena = driver.find_element_by_xpath('//*[@id="wt_row_7"]/td[5]').text
+        mechy_cena = mechy_cena.split('\n')
+        self.mechy_cena = mechy_cena[0]
+
+    def datadomacitrh(self):
+        print("Skenuju trh")
+        driver = self.driver
+        self.jidlo_pocetkprodeji_dom = driver.find_element_by_xpath('//*[@class="vis_tbl"]/tbody/tr[2]/td[4]').text
+        self.energie_pocetkprodeji_dom = driver.find_element_by_xpath('//*[@class="vis_tbl"]/tbody/tr[3]/td[4]').text
+        self.voj_pocetkprodeji_dom = driver.find_element_by_xpath('//*[@class="vis_tbl"]/tbody/tr[4]/td[4]').text
+        self.tanky_pocetkprodeji_dom = driver.find_element_by_xpath('//*[@class="vis_tbl"]/tbody/tr[5]/td[4]').text
+        self.stihy_pocetkprodeji_dom = driver.find_element_by_xpath('//*[@class="vis_tbl"]/tbody/tr[6]/td[4]').text
+        self.bunkry_pocetkprodeji_dom = driver.find_element_by_xpath('//*[@class="vis_tbl"]/tbody/tr[7]/td[4]').text
+        self.mechy_pocetkprodeji_dom = driver.find_element_by_xpath('//*[@class="vis_tbl"]/tbody/tr[8]/td[4]').text
+
+        # Cena
+        jidlo_cena = driver.find_element_by_xpath('//*[@class="vis_tbl"]/tbody/tr[2]/td[6]').text
+        self.jidlo_cena_dom = jidlo_cena.replace('$', '')
+        energie_cena = driver.find_element_by_xpath('//*[@class="vis_tbl"]/tbody/tr[3]/td[6]').text
+        self.energie_cena_dom = energie_cena.replace('$', '')
+        voj_cena = driver.find_element_by_xpath('//*[@class="vis_tbl"]/tbody/tr[4]/td[6]').text
+        self.voj_cena_dom = voj_cena.replace('$', '')
+        tanky_cena = driver.find_element_by_xpath('//*[@class="vis_tbl"]/tbody/tr[5]/td[6]').text
+        self.tanky_cena_dom = tanky_cena.replace('$', '')
+        stihy_cena = driver.find_element_by_xpath('//*[@class="vis_tbl"]/tbody/tr[6]/td[6]').text
+        self.stihy_cena_dom = stihy_cena.replace('$', '')
+        bunkry_cena = driver.find_element_by_xpath('//*[@class="vis_tbl"]/tbody/tr[7]/td[6]').text
+        self.bunkry_cena_dom = bunkry_cena.replace('$', '')
+        mechy_cena = driver.find_element_by_xpath('//*[@class="vis_tbl"]/tbody/tr[8]/td[6]').text
+        self.mechy_cena_dom = mechy_cena.replace('$', '')
+
+    def vypocetdomtosv(self):
+        print("Pocitam trh")
+        jidlo_pocetknakupu_dom = self.jidlo_pocetkprodeji_dom
+        energie_pocetknakupu_dom = self.energie_pocetkprodeji_dom
+        voj_pocetknakupu_dom = self.voj_pocetkprodeji_dom
+        tanky_pocetknakupu_dom = self.tanky_pocetkprodeji_dom
+        stihy_pocetknakupu_dom = self.stihy_pocetkprodeji_dom
+        bunkry_pocetknakupu_dom = self.bunkry_pocetkprodeji_dom
+        mechy_pocetknakupu_dom = self.mechy_pocetkprodeji_dom
+        # Cena dom trh
+        jidlo_cena_dom = self.jidlo_cena_dom
+        energie_cena_dom = self.energie_cena_dom
+        voj_cena_dom = self.voj_cena_dom
+        tanky_cena_dom = self.tanky_cena_dom
+        stihy_cena_dom = self.stihy_cena_dom
+        bunkry_cen_doma = self.bunkry_cena_dom
+        mechy_cena_dom = self.mechy_cena_dom
+        # Cena sv trh
+        jidlo_cena_sv = self.jidlo_cena
+        energie_cena_sv = self.energie_cena
+        voj_cena_sv = self.voj_cena
+        tanky_cena_sv = self.tanky_cena
+        stihy_cena_sv = self.stihy_cena
+        bunkry_cen_sv = self.bunkry_cena
+        mechy_cena_sv = self.mechy_cena
+
+        self.vydelek_jidlo = ((int(jidlo_pocetknakupu_dom) * int(jidlo_cena_sv)) * 0.90) - (int(jidlo_pocetknakupu_dom) * int(jidlo_cena_dom))
+        self.vydelek_ene = ((int(energie_pocetknakupu_dom) * int(energie_cena_sv)) * 0.90) - (int(energie_pocetknakupu_dom) * int(energie_cena_dom))
+        self.vydelek_voj = ((int(voj_pocetknakupu_dom) * int(voj_cena_sv)) * 0.94) - (int(voj_pocetknakupu_dom) * int(voj_cena_dom)) #KK
+        self.vydelek_tanky = ((int(tanky_pocetknakupu_dom) * int(tanky_cena_sv)) * 0.94) - (int(tanky_pocetknakupu_dom) * int(tanky_cena_dom))
+        self.vydelek_stihy = ((int(stihy_pocetknakupu_dom) * int(stihy_cena_sv)) * 0.94) - (int(stihy_pocetknakupu_dom) * int(stihy_cena_dom))
+        self.vydelek_bunkry = ((int(bunkry_pocetknakupu_dom) * int(bunkry_cen_sv)) * 0.94) - (int(bunkry_pocetknakupu_dom) * int(bunkry_cen_doma))
+        self.vydelek_mechy = ((int(mechy_pocetknakupu_dom) * int(mechy_cena_sv)) * 0.94) - (int(mechy_pocetknakupu_dom) * int(mechy_cena_dom))
+
+    def prodejdomtosv(self):
+        print("Start vepsání")
+        list_kontrola = [self.vydelek_jidlo, self.vydelek_ene, self.vydelek_voj, self.vydelek_tanky, self.vydelek_stihy, self.vydelek_bunkry, self.vydelek_mechy]
+        print(list_kontrola)
+        pb = 0
+        while pb < 7:
+            list_cen = [self.vydelek_jidlo, self.vydelek_ene, self.vydelek_voj, self.vydelek_tanky, self.vydelek_stihy, self.vydelek_bunkry, self.vydelek_mechy]
+            list_cen.sort(reverse=True)
+            tr = 0
+            print("To kolik vydělám:")
+            print(list_cen)
+            if list_cen[pb] == self.vydelek_jidlo:
+                tr = "2"
+                pocet = self.jidlo_pocetkprodeji_dom
+            elif  list_cen[pb] == self.vydelek_ene:
+                tr = "3"
+                pocet = self.energie_pocetkprodeji_dom
+            elif list_cen[pb] == self.vydelek_voj:
+                tr = "4"
+                pocet = self.voj_pocetkprodeji_dom
+            elif list_cen[pb] == self.vydelek_tanky:
+                tr = "5"
+                pocet = self.tanky_pocetkprodeji_dom
+            elif  list_cen[pb] == self.vydelek_stihy:
+                tr = "6"
+                pocet = self.stihy_pocetkprodeji_dom
+            elif  list_cen[pb] == self.vydelek_bunkry:
+                tr = "7"
+                pocet = self.bunkry_pocetkprodeji_dom
+            elif  list_cen[pb] == self.vydelek_mechy:
+                tr = "8"
+                pocet = self.mechy_pocetkprodeji_dom
+            else:
+                break
+            if list_cen[pb] > 100:
+                self.driver.find_element_by_xpath('//*[@class="vis_tbl"]/tbody/tr['+tr+']/td[8]/input').send_keys(pocet)
+            pb += 1
+            print("Konec cyklu")
+
+
     def closedriver(self):
         self.driver.quit()
 # Def ze kterého spouštím nějaký chod programu, uvnitř jsou vložené instance, metody z třídy která je nad tím
@@ -359,6 +488,59 @@ def konec():
 def runtrue():
     global run
     run = True
+def t_dom():
+    print(run)
+    print(prohlizec.get())
+    print(chdrive.get())
+    print(login.get())
+    print(heslo.get())
+    # Zda chceš ppužít proxy nebo ne
+    if "Chrome" == prohlizec.get():
+        if proxy.get() == 1:
+            # s proxy
+            pripojeni = BotTop(webdriver.Chrome(chdrive.get()),"https://www.free-proxy.com/")  # Cesta k driveru 'C:\\bin\\chromedriver'
+            pripojeni.connect()
+            time.sleep(3)
+        else:
+            # bez proxy
+            pripojeni = BotTop(webdriver.Chrome(chdrive.get()),"https://www.webgame.cz/")  # Cesta k driveru 'C:\\bin\\chromedriver'
+    elif prohlizec.get() == "Firefox":
+        if proxy.get() == 1:
+            # s proxy
+            pripojeni = BotTop(webdriver.Firefox(chdrive.get()),"https://www.free-proxy.com/")  # Cesta k driveru 'C:\\bin\\chromedriver'
+            pripojeni.connect()
+            time.sleep(3)
+        else:
+            # bez proxy
+            pripojeni = BotTop(webdriver.Firefox(executable_path=chdrive.get()),"https://www.webgame.cz/")  # Cesta k driveru 'C:\\bin\\chromedriver'
+    elif prohlizec == "Internet Explorer":
+        if proxy.get() == 1:
+            # s proxy
+            pripojeni = BotTop(webdriver.Ie(chdrive.get()),"https://www.free-proxy.com/")  # Cesta k driveru 'C:\\bin\\chromedriver'
+            pripojeni.connect()
+            time.sleep(3)
+        else:
+            # bez proxy
+            pripojeni = BotTop(webdriver.Ie(chdrive.get()),"https://www.webgame.cz/")  # Cesta k driveru 'C:\\bin\\chromedriver'
+    else:
+        print("Nevybral jsi prohlížeč")
+    time.sleep(4)
+    # vložení log inu a heslo do formuláře a odeslání
+    pripojeni.login(login.get(), heslo.get())
+    time.sleep(3)
+    pripojeni.vyber('Dom')
+    pripojeni.datadomacitrh()
+    time.sleep(random.randrange(0, 15))
+    pripojeni.vyber('Sv')
+    pripojeni.datasvetovytrh()
+    pripojeni.vypocetdomtosv()
+    time.sleep(random.randrange(0, 15))
+    pripojeni.vyber('Dom')
+    time.sleep(5)
+    pripojeni.prodejdomtosv()
+    #pripojeni.closedriver()
+
+
 
 # Nastavení proměných
 run = True
@@ -412,15 +594,18 @@ Checkbutton(window, text='Refresh na Světovém trhu', variable=refresh).place(r
 proxy = IntVar()
 Checkbutton(window, text='Proxy', variable=proxy).place(relx=.5, rely=.46, anchor=S)
 
+
 # endregion
 # region Tlačítka
 
 t = threading.Thread(target=start)
-
+t_dom = threading.Thread(target=t_dom)
 
 Start = Button(window, text="Start", command=lambda: [runtrue(), t.start()])
 Start.place(relx=.2, rely=.9, anchor=S)
 
+p_domtrhButton = Button(window, text="Přeprodej dom. trhu", command=lambda: [runtrue(), t_dom.start()])
+p_domtrhButton.place(relx=.2, rely=.8, anchor=S)
 ConfigButton = Button(window, text="Vytvoř config", command=konfigurace)
 ConfigButton.place(relx=.7, rely=.7, anchor=S)
 
