@@ -361,28 +361,43 @@ class BotTop:
             if list_cen[pb] == self.vydelek_jidlo:
                 tr = "2"
                 pocet = self.jidlo_pocetkprodeji_dom
-            elif  list_cen[pb] == self.vydelek_ene:
+                text_prodej = "jídlo"
+            elif list_cen[pb] == self.vydelek_ene:
                 tr = "3"
                 pocet = self.energie_pocetkprodeji_dom
+                text_prodej = "Energii"
             elif list_cen[pb] == self.vydelek_voj:
                 tr = "4"
                 pocet = self.voj_pocetkprodeji_dom
+                text_prodej = "Vojáky"
             elif list_cen[pb] == self.vydelek_tanky:
                 tr = "5"
                 pocet = self.tanky_pocetkprodeji_dom
-            elif  list_cen[pb] == self.vydelek_stihy:
+                text_prodej = "Tanky"
+            elif list_cen[pb] == self.vydelek_stihy:
                 tr = "6"
                 pocet = self.stihy_pocetkprodeji_dom
-            elif  list_cen[pb] == self.vydelek_bunkry:
+
+                text_prodej = "Stíhy"
+            elif list_cen[pb] == self.vydelek_bunkry:
                 tr = "7"
                 pocet = self.bunkry_pocetkprodeji_dom
-            elif  list_cen[pb] == self.vydelek_mechy:
+                text_prodej = "Bunkry"
+            elif list_cen[pb] == self.vydelek_mechy:
                 tr = "8"
                 pocet = self.mechy_pocetkprodeji_dom
+                text_prodej = "Mechy"
             else:
                 break
             if list_cen[pb] > 100:
-                self.driver.find_element_by_xpath('//*[@class="vis_tbl"]/tbody/tr['+tr+']/td[8]/input').send_keys(pocet)
+                if pocet >= 500:
+                    self.driver.find_element_by_xpath('//*[@class="vis_tbl"]/tbody/tr['+tr+']/td[8]/input').send_keys(pocet)
+                elif pocet >= 2000:
+                    self.driver.find_element_by_xpath('//*[@class="vis_tbl"]/tbody/tr[' + tr + ']/td[8]/input').send_keys(pocet)
+                else:
+                    print("Nevyplatí se mi prodávat, kvuli množství:"+ text_prodej)
+            else:
+                print("Nevyplatí se mi prodávat" + text_prodej + ", protože bych vydělal méně než 100$")
             pb += 1
             print("Konec cyklu")
 
