@@ -34,6 +34,14 @@ class BotTop:
     # Proměná do které se mi importuje výběr z listu kde mám uložení menu
     def vyber(self, vyber):
         self.driver.find_element_by_partial_link_text(vyber).click()
+    def click(self, xpath):
+        self.driver.find_element_by_xpath(xpath).click()
+    def berdata(self):
+        driver = self.driver
+        temp = driver.execute_script('return window.Highcharts.charts[0]''.series[0].options.data')
+        print(temp)
+        data = [item[1] for item in temp]
+        print(data)
 
     def refresh(self):
         self.driver.refresh()
@@ -289,17 +297,31 @@ class BotTop:
     def datadomacitrh(self):
         print("Skenuju trh")
         driver = self.driver
-        self.jidlo_pocetkprodeji_dom = driver.find_element_by_xpath('//*[@class="vis_tbl"]/tbody/tr[2]/td[4]').text
-        self.energie_pocetkprodeji_dom = driver.find_element_by_xpath('//*[@class="vis_tbl"]/tbody/tr[3]/td[4]').text
-        self.voj_pocetkprodeji_dom = driver.find_element_by_xpath('//*[@class="vis_tbl"]/tbody/tr[4]/td[4]').text
-        self.tanky_pocetkprodeji_dom = driver.find_element_by_xpath('//*[@class="vis_tbl"]/tbody/tr[5]/td[4]').text
-        self.stihy_pocetkprodeji_dom = driver.find_element_by_xpath('//*[@class="vis_tbl"]/tbody/tr[6]/td[4]').text
-        self.bunkry_pocetkprodeji_dom = driver.find_element_by_xpath('//*[@class="vis_tbl"]/tbody/tr[7]/td[4]').text
-        self.mechy_pocetkprodeji_dom = driver.find_element_by_xpath('//*[@class="vis_tbl"]/tbody/tr[8]/td[4]').text
+        jidlo_pocetkprodeji_dom = driver.find_element_by_xpath('//*[@class="vis_tbl"]/tbody/tr[2]/td[4]').text
+        self.jidlo_pocetkprodeji_dom = jidlo_pocetkprodeji_dom.replace(" ", '')
+
+        energie_pocetkprodeji_dom = driver.find_element_by_xpath('//*[@class="vis_tbl"]/tbody/tr[3]/td[4]').text
+        self.energie_pocetkprodeji_dom = energie_pocetkprodeji_dom.replace(" ", '')
+
+        voj_pocetkprodeji_dom = driver.find_element_by_xpath('//*[@class="vis_tbl"]/tbody/tr[4]/td[4]').text
+        self.voj_pocetkprodeji_dom = voj_pocetkprodeji_dom.replace(" ", '')
+
+        tanky_pocetkprodeji_dom = driver.find_element_by_xpath('//*[@class="vis_tbl"]/tbody/tr[5]/td[4]').text
+        self.tanky_pocetkprodeji_dom = tanky_pocetkprodeji_dom.replace(" ", '')
+
+        stihy_pocetkprodeji_dom = driver.find_element_by_xpath('//*[@class="vis_tbl"]/tbody/tr[6]/td[4]').text
+        self.stihy_pocetkprodeji_dom = stihy_pocetkprodeji_dom.replace(" ", '')
+
+        bunkry_pocetkprodeji_dom = driver.find_element_by_xpath('//*[@class="vis_tbl"]/tbody/tr[7]/td[4]').text
+        self.bunkry_pocetkprodeji_dom = bunkry_pocetkprodeji_dom.replace(" ", '')
+
+        mechy_pocetkprodeji_dom = driver.find_element_by_xpath('//*[@class="vis_tbl"]/tbody/tr[8]/td[4]').text
+        self.mechy_pocetkprodeji_dom = mechy_pocetkprodeji_dom.replace(" ", '')
 
         # Cena
         jidlo_cena = driver.find_element_by_xpath('//*[@class="vis_tbl"]/tbody/tr[2]/td[6]').text
-        self.jidlo_cena_dom = jidlo_cena.replace('$', '')
+        jidlo_cena = jidlo_cena.replace('$', '')
+        self.jidlo_cena_dom = jidlo_cena.replace(" ", '')
         energie_cena = driver.find_element_by_xpath('//*[@class="vis_tbl"]/tbody/tr[3]/td[6]').text
         self.energie_cena_dom = energie_cena.replace('$', '')
         voj_cena = driver.find_element_by_xpath('//*[@class="vis_tbl"]/tbody/tr[4]/td[6]').text
@@ -324,13 +346,21 @@ class BotTop:
         mechy_pocetknakupu_dom = self.mechy_pocetkprodeji_dom
         # Cena dom trh
         jidlo_cena_dom = self.jidlo_cena_dom
+        print(jidlo_cena_dom)
         energie_cena_dom = self.energie_cena_dom
+        print(energie_cena_dom )
         voj_cena_dom = self.voj_cena_dom
+        print(voj_cena_dom)
         tanky_cena_dom = self.tanky_cena_dom
+        print(tanky_cena_dom)
         stihy_cena_dom = self.stihy_cena_dom
+        print(stihy_cena_dom)
         bunkry_cen_doma = self.bunkry_cena_dom
+        print(bunkry_cen_doma)
         mechy_cena_dom = self.mechy_cena_dom
+        print(mechy_cena_dom)
         # Cena sv trh
+        print('uložení světového trhu cen')
         jidlo_cena_sv = self.jidlo_cena
         energie_cena_sv = self.energie_cena
         voj_cena_sv = self.voj_cena
@@ -338,9 +368,11 @@ class BotTop:
         stihy_cena_sv = self.stihy_cena
         bunkry_cen_sv = self.bunkry_cena
         mechy_cena_sv = self.mechy_cena
-
+        print('jdu počítat jídlo')
         self.vydelek_jidlo = ((int(jidlo_pocetknakupu_dom) * int(jidlo_cena_sv)) * 0.90) - (int(jidlo_pocetknakupu_dom) * int(jidlo_cena_dom))
+        print('ene')
         self.vydelek_ene = ((int(energie_pocetknakupu_dom) * int(energie_cena_sv)) * 0.90) - (int(energie_pocetknakupu_dom) * int(energie_cena_dom))
+        print('vojáci')
         self.vydelek_voj = ((int(voj_pocetknakupu_dom) * int(voj_cena_sv)) * 0.94) - (int(voj_pocetknakupu_dom) * int(voj_cena_dom)) #KK
         self.vydelek_tanky = ((int(tanky_pocetknakupu_dom) * int(tanky_cena_sv)) * 0.94) - (int(tanky_pocetknakupu_dom) * int(tanky_cena_dom))
         self.vydelek_stihy = ((int(stihy_pocetknakupu_dom) * int(stihy_cena_sv)) * 0.94) - (int(stihy_pocetknakupu_dom) * int(stihy_cena_dom))
@@ -348,9 +380,14 @@ class BotTop:
         self.vydelek_mechy = ((int(mechy_pocetknakupu_dom) * int(mechy_cena_sv)) * 0.94) - (int(mechy_pocetknakupu_dom) * int(mechy_cena_dom))
 
     def prodejdomtosv(self):
+        driver = self.driver
         print("Start vepsání")
         list_kontrola = [self.vydelek_jidlo, self.vydelek_ene, self.vydelek_voj, self.vydelek_tanky, self.vydelek_stihy, self.vydelek_bunkry, self.vydelek_mechy]
         print(list_kontrola)
+        penize = driver.find_element_by_xpath('//*[@class="rdata"]').text
+        penize = penize.split()
+        print(penize[1])
+
         pb = 0
         while pb < 7:
             list_cen = [self.vydelek_jidlo, self.vydelek_ene, self.vydelek_voj, self.vydelek_tanky, self.vydelek_stihy, self.vydelek_bunkry, self.vydelek_mechy]
@@ -391,9 +428,9 @@ class BotTop:
                 break
             if list_cen[pb] > 100:
                 if pocet >= 500:
-                    self.driver.find_element_by_xpath('//*[@class="vis_tbl"]/tbody/tr['+tr+']/td[8]/input').send_keys(pocet)
+                    driver.find_element_by_xpath('//*[@class="vis_tbl"]/tbody/tr['+tr+']/td[8]/input').send_keys(pocet)
                 elif pocet >= 2000:
-                    self.driver.find_element_by_xpath('//*[@class="vis_tbl"]/tbody/tr[' + tr + ']/td[8]/input').send_keys(pocet)
+                    driver.find_element_by_xpath('//*[@class="vis_tbl"]/tbody/tr[' + tr + ']/td[8]/input').send_keys(pocet)
                 else:
                     print("Nevyplatí se mi prodávat, kvuli množství:"+ text_prodej)
             else:
@@ -404,6 +441,7 @@ class BotTop:
 
     def closedriver(self):
         self.driver.quit()
+
 # Def ze kterého spouštím nějaký chod programu, uvnitř jsou vložené instance, metody z třídy která je nad tím
 def start():
     print(run)
@@ -543,16 +581,10 @@ def t_dom():
     # vložení log inu a heslo do formuláře a odeslání
     pripojeni.login(login.get(), heslo.get())
     time.sleep(3)
-    pripojeni.vyber('Dom')
-    pripojeni.datadomacitrh()
-    time.sleep(random.randrange(0, 15))
     pripojeni.vyber('Sv')
-    pripojeni.datasvetovytrh()
-    pripojeni.vypocetdomtosv()
-    time.sleep(random.randrange(0, 15))
-    pripojeni.vyber('Dom')
-    time.sleep(5)
-    pripojeni.prodejdomtosv()
+    pripojeni.click('//*[@id="uMenu"]/ul/li[1]/a[3]')
+    pripojeni.berdata()
+
     #pripojeni.closedriver()
 
 
